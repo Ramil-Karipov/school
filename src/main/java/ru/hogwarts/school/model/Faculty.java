@@ -1,8 +1,8 @@
 package ru.hogwarts.school.model;
 
 import java.util.Objects;
-
 public class Faculty {
+
     private Long id;
     private String name;
     private String color;
