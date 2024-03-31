@@ -54,4 +54,10 @@ public class FacultyController {
         }
         return ResponseEntity.ok(Collections.emptyList());
     }
+
+    @GetMapping("/filteredByColorOrName")
+    public Collection<Faculty> filtered(@RequestParam String color, @RequestParam String name) {
+        return facultyService.getByNameOrColorIgnoreCase(color, name);
+
+    }
 }

@@ -1,4 +1,5 @@
 package ru.hogwarts.school.controller;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,4 +54,10 @@ public class StudentController {
         }
         return ResponseEntity.ok(Collections.emptyList());
     }
+
+    @GetMapping("/ageBetween")
+    public Collection<Student> filtered(@RequestParam int min, @RequestParam int max) {
+        return studentService.getAllByAgeBetween(min, max);
+    }
 }
+
