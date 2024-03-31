@@ -5,6 +5,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
+import java.util.FormatterClosedException;
 
 @Service
 public class FacultyServiceImpl {
@@ -22,13 +23,20 @@ public class FacultyServiceImpl {
 
 
     public Faculty findFaculty(long id) {
-        return facultyRepository.findById(id).get();
+        return facultyRepository.findById(id).orElseThrow(FormatterClosedException::new);
     }
 
-
     public Faculty updateFaculty(long id, Faculty faculty) {
-        return facultyRepository.save(faculty);
+        Faculty existingFaculty = findFaculty(id);
+        existingFaculty.setName(faculty.getName());
+        existingFaculty.setColor(faculty.getColor());
+        facultyRepository.save(existingFaculty);
+        return existingFaculty;
 
+    }
+
+    public Collection<Faculty> getAll() {
+        return facultyRepository.findAll();
     }
 
 
@@ -39,6 +47,7 @@ public class FacultyServiceImpl {
 
 
     public Collection<Faculty> getFacultiesByColor(String color) {
+
         return facultyRepository.findByColor(color);
     }
 }

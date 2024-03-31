@@ -5,6 +5,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
+import java.util.FormatterClosedException;
 
 @Service
 public class StudentServiceImpl {
@@ -22,11 +23,14 @@ public class StudentServiceImpl {
 
 
     public Student findStudent(long id) {
-        return studentRepository.findById(id).get();
+        return studentRepository.findById(id).orElseThrow(FormatterClosedException::new);
     }
 
 
     public Student updateStudent(long id, Student student) {
+        Student exsistingStudent = findStudent(id);
+        exsistingStudent.setAge(student.getAge());
+        exsistingStudent.setName(student.getName());
         return studentRepository.save(student);
     }
 
@@ -35,8 +39,13 @@ public class StudentServiceImpl {
         studentRepository.deleteById(id);
     }
 
+    public Collection<Student> getAll() {
+        return studentRepository.findAll();
+    }
+
 
     public Collection<Student> getStudentsByAge(int age) {
+
         return studentRepository.findByAge(age);
     }
 }
