@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.FormatterClosedException;
 
 @Service
-public class StudentServiceImpl {
+public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
 
@@ -35,8 +35,9 @@ public class StudentServiceImpl {
     }
 
 
-    public void deleteStudent(long id) {
+    public Student deleteStudent(long id) {
         studentRepository.deleteById(id);
+        return null;
     }
 
     public Collection<Student> getAll() {
@@ -47,6 +48,11 @@ public class StudentServiceImpl {
     public Collection<Student> getStudentsByAge(int age) {
 
         return studentRepository.findByAge(age);
+    }
+
+    @Override
+    public Collection<Student> getAllByAgeBetween(int min, int max) {
+        return null;
     }
 
     public Collection<Student> getByAgeBetween(int min, int max) {

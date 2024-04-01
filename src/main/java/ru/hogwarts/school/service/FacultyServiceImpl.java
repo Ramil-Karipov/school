@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.FormatterClosedException;
 
 @Service
-public class FacultyServiceImpl {
+public class FacultyServiceImpl implements FacultyService {
 
     private final FacultyRepository facultyRepository;
 
@@ -40,8 +40,8 @@ public class FacultyServiceImpl {
     }
 
 
-    public void deleteFaculty(long id) {
-        facultyRepository.deleteById(id);
+    public Faculty deleteFaculty(long id) {
+        return null;
 
     }
 
