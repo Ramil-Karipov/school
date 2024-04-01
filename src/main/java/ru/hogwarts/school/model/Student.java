@@ -1,11 +1,13 @@
 package ru.hogwarts.school.model;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
+@Entity
 public class Student {
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private int age;
