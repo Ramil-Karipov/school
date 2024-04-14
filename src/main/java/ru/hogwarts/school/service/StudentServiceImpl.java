@@ -55,7 +55,5 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAllByAgeBetween(min, max);
     }
 
-    //public Collection<Student> getByAgeBetween(int min, int max) {
+}
 
-    }
-//}
