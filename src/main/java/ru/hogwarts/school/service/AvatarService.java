@@ -25,7 +25,7 @@ public class AvatarService {
     }
 
     public void save(Long studentId, MultipartFile multipartFile) throws IOException {
-        Avatar avatar = new Avatar();
+        Avatar avatar = avatarRepository.findByStudentId(studentId).orElse(new Avatar());
         avatar.setStudent(studentRepository.getReferenceById(studentId));
         avatar.setData(multipartFile.getBytes());
         avatar.setFileSize(multipartFile.getSize());
@@ -44,5 +44,9 @@ public class AvatarService {
 
         avatarRepository.save(avatar);
 
+    }
+
+    public Avatar getAvatar(Long studentId) {
+        return avatarRepository.findByStudentId(studentId).orElseThrow();
     }
 }
