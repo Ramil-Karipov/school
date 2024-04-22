@@ -22,7 +22,7 @@ public class Faculty {
     @JsonIgnore
     private List<Student> students;
 
-    public Faculty() {
+    public Faculty(Object o, String math, String black) {
     }
 
     public Long getId() {
