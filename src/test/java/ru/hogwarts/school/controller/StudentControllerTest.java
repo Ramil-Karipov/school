@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import ru.hogwarts.school.SchoolApplication;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
@@ -51,9 +48,21 @@ public class StudentControllerTest {
         assertThat(body.getName()).isEqualTo("stud_name");
         assertThat(body.getAge()).isEqualTo(20);
 
-
+        body.setAge(21);
         HttpEntity<Student> requestEntity = new RequestEntity<>(body, HttpMethod.PUT, null);
-        ResponseEntity<Student> exchange = template.exchange("/student/" + body.getId(), HttpMethod.PUT, requestEntity, Student.class);
+        response = template.exchange("/student/" + body.getId(), HttpMethod.PUT, requestEntity, Student.class);
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+
+        response = template.getForEntity("/student/" + body.getId(), Student.class);
+        body = response.getBody();
+        assertThat(body).isNotNull();
+        assertThat(body.getId()).isNotNull();
+        assertThat(body.getName()).isEqualTo("stud_name");
+        assertThat(body.getAge()).isEqualTo(21);
+
+        template.delete("/student/" + body.getId());
+        response = template.getForEntity("/student/" + body.getId(), Student.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
 
 
     }
