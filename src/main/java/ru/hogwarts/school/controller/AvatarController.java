@@ -12,6 +12,7 @@ import ru.hogwarts.school.service.AvatarService;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/avatar")
@@ -62,5 +63,10 @@ public class AvatarController {
         } catch (IOException e) {
             response.setStatus(400);
         }
+    }
+
+    @GetMapping("/page")
+    public List<Avatar> getPage(int page, int size) {
+        return avatarService.getPage(page, size);
     }
 }

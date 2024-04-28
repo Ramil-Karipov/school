@@ -7,6 +7,7 @@ import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
 import java.util.FormatterClosedException;
+import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -58,5 +59,17 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAllByAgeBetween(min, max);
     }
 
+    public long count() {
+        return studentRepository.countStudent();
+    }
+
+    public double getAverageAge() {
+        return studentRepository.findAverageAge();
+    }
+
+    public List<Student> getLastStudents() {
+        return studentRepository.findLastStudents(5);
+
+    }
 }
 
