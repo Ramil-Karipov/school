@@ -42,7 +42,7 @@ public class FacultyControllerMVCTest {
     @BeforeEach
     void init() {
         faculty = new Faculty(1L, "stud_name", "black");
-        faculty.setStudents(new Student(1L, "stud_name", 21));
+        faculty.setStudents(List.of(new Student(1L, "stud_name", 21)));
 
         optionalFaculty = Optional.of(faculty);
         Mockito.when(facultyRepository.findById(ArgumentMatchers.anyLong()))
