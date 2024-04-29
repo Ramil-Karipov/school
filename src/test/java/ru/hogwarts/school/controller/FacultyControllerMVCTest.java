@@ -18,7 +18,8 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
-import ru.hogwarts.school.service.StudentService;
+import ru.hogwarts.school.service.FacultyServiceImpl;
+import ru.hogwarts.school.service.StudentServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,9 @@ public class FacultyControllerMVCTest {
     @MockBean
     FacultyRepository facultyRepository;
     @SpyBean
-    StudentService studentService;
+    StudentServiceImpl studentService;
+    @SpyBean
+    FacultyServiceImpl facultyService;
 
     @Autowired
     MockMvc mockMvc;
@@ -53,7 +56,7 @@ public class FacultyControllerMVCTest {
 
     @Test
     void create() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/student")
+        mockMvc.perform(MockMvcRequestBuilders.post("/faculty")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(mapper.writeValueAsString(faculty)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -63,7 +66,7 @@ public class FacultyControllerMVCTest {
 
     @Test
     void update() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.request(HttpMethod.PUT, "/student/1")
+        mockMvc.perform(MockMvcRequestBuilders.request(HttpMethod.PUT, "/faculty/1")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(mapper.writeValueAsString(faculty)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -73,7 +76,7 @@ public class FacultyControllerMVCTest {
 
     @Test
     void delete() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.request(HttpMethod.DELETE, "/student/1")
+        mockMvc.perform(MockMvcRequestBuilders.request(HttpMethod.DELETE, "/faculty/1")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(mapper.writeValueAsString(faculty)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -82,24 +85,24 @@ public class FacultyControllerMVCTest {
 
     @Test
     void get() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/student/1")
+        mockMvc.perform(MockMvcRequestBuilders.get("/faculty/1")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("id").isNotEmpty())
                 .andExpect(MockMvcResultMatchers.jsonPath("name").value("stud_name"))
-                .andExpect(MockMvcResultMatchers.jsonPath("age").value("20"));
+                .andExpect(MockMvcResultMatchers.jsonPath("color").value("black"));
 
     }
 
     @Test
     void getAll() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/student")
+        mockMvc.perform(MockMvcRequestBuilders.get("/faculty")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").isNotEmpty())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("stud_name"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value("20"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].color").value("black"));
     }
 }
 
