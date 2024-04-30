@@ -67,4 +67,9 @@ public class FacultyController {
     public List<Student> getStudentsByFaculty(@PathVariable long id) {
         return facultyService.findFaculty(id).getStudents();
     }
+
+    @GetMapping
+    public Collection<Faculty> getAll() {
+        return facultyService.getAll();
+    }
 }
