@@ -88,6 +88,22 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+    public List<String> getAllStartingWithA() {
+        return studentRepository.findAll().stream()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(s -> s.startsWith("A"))
+                .sorted()
+                .toList();
+    }
+
+    public double getAverageAgeSort() {
+        return studentRepository.findAll().stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(-1);
+    }
+
     public void printAsync() {
         List<Student> all = studentRepository.findAll();
 

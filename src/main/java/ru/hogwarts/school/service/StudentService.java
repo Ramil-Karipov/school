@@ -25,5 +25,14 @@ public interface StudentService {
     double getAverageAge();
 
     List<Student> getLastStudents();
+
+    List<String> getAllStartingWithA();
+
+    double getAverageAgeSort();
+
+    void printAsync();
+
+    public void printSync();
+
 }
 

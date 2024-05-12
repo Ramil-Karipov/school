@@ -7,6 +7,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.FormatterClosedException;
 
 @Service
@@ -69,5 +70,12 @@ public class FacultyServiceImpl implements FacultyService {
     public Collection<Faculty> getByNameOrColorIgnoreCase(String name, String color) {
         logger.info("Method getByNameOrColorIgnoreCase invoked");
         return facultyRepository.findByNameOrColorIgnoreCase(color, name);
+    }
+
+    public String getLongestName() {
+        return facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length))
+                .orElseThrow();
     }
 }
